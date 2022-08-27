@@ -37,10 +37,11 @@ sp = int(CalFile[5])
 #acquire the latest frame from the camera. This prevents
 #camera acquisition from blocking the image processing. 
 class PiVideoStream:
-	def __init__(self, resolution=(320, 240)):
+	def __init__(self, resolution=(320, 240), framerate = 90):
 		# initialize the camera and stream
 		self.camera = PiCamera()
 		self.camera.resolution = resolution
+		self.camera.framerate = framerate
 		self.camera.awb_mode = 'off'
 		self.camera.iso = 800
 		self.camera.exposure_mode = 'off'
@@ -199,8 +200,9 @@ while(True):
 	#t0 = t1 #Used for testing
 	
 	#The following "waitKey" block can be deleted if desired
-	k = cv2.waitKey(1) # wait xx ms for specified key to be pressed
-	if k % 256 == 27: # "27" is the "Esc" key
+	k = cv2.waitKey(1) & 0xFF # wait xx ms for specified key to be pressed
+	# if the `q` key was pressed, break from the loop
+	if k == ord("q"):
 		break # end the while loop
 
 ##When everything is finished, release capture and kill windows
