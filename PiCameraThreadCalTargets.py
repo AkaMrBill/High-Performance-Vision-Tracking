@@ -31,7 +31,7 @@ sp = int(CalFile[5])
 #acquire the latest frame from the camera. This prevents
 #camera acquisition from blocking the image processing. 
 class PiVideoStream:
-	def __init__(self, resolution=(320, 240)):  #, framerate=32):
+	def __init__(self, resolution=(320, 240) , framerate = 90):
 		# initialize the camera and stream
 		self.camera = PiCamera()
 		self.camera.resolution = resolution
@@ -285,8 +285,9 @@ while(True):
 	t1 = time.perf_counter()
 	print (1/(t1-t0)), 'FPS'
 	
-	k = cv2.waitKey(1) # wait xx ms for specified key to be pressed
-	if k % 256 == 27: # "27" is the "Esc" key
+	k = cv2.waitKey(1) & 0xFF # wait xx ms for specified key to be pressed
+	# if the `q` key was pressed, break from the loop
+	if k == ord("q"): 
 		break # end the while loop
 
 #Write calibration values to a text file named "Calibration" 
