@@ -6,10 +6,12 @@ import cv2
 
 width = 320
 height = 240
+framerate = 90
 
 # initialize the camera and grab a reference to the raw camera capture
 camera = PiCamera()
 camera.resolution = (width,height)
+camera.framerate = (framerate)
 camera.awb_mode = 'off'
 camera.iso = 800
 camera.exposure_mode = 'off'
