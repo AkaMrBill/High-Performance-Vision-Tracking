@@ -35,6 +35,7 @@ class PiVideoStream:
 		# initialize the camera and stream
 		self.camera = PiCamera()
 		self.camera.resolution = resolution
+		self.camera.framerate = framerate
 		self.camera.awb_mode = 'off'
 		self.camera.iso = 800
 		self.camera.exposure_mode = 'off'
